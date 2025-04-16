@@ -55,3 +55,77 @@ res.status(201).json({success:true,message:"User Created Successfully...",userDa
         res.status(500).json({success:false,message:"Internal Server Error"})
     }
 }
+
+export const Logout=async(req ,res)=>{
+    try {
+        const refreshToken=req.cookies.refreshToken
+        if(refreshToken)
+        {
+            const decoded= jwt.verify(refreshToken,process.env.REFRESH_TOKEN)
+            redis.del(`refresh_token:${decoded.userId}`)
+        }
+        
+        res.clearCookie("accessToken")
+        res.clearCookie("refreshToken")
+        return res.status(200).json({success:true,message:"Logout Successful"})
+    } catch (error) {
+        console.log("Logout Error",error)
+       return res.status(500).json({success:false,message:"Internal Server Error"})
+    }
+}
+
+export const Login=async(req ,res)=>{
+    try {
+        const {email,password}=req.body
+        const user= await UserModel.findOne({email})
+        if(!user)
+        {
+            return res.status(404).json({success:false,message:"User not found"})
+        }
+        if(user &&(await user.comparePassword(password)))
+            
+        {
+        
+            
+            const {accessToken,refreshToken}=generateTokens(user._id)
+             await storeRefreshToken(user._id,refreshToken)
+            setCookies(res,refreshToken,accessToken)
+
+            const {password:_,...userData}=user.toObject()
+            return res.status(200).json({success:true,message:"Login Successful..",userData})
+        }
+
+        
+    } catch(error)
+    {
+        console.log("Logout Error",error)
+        res.status(500).json({success:false,message:"Internal Server Error"})
+    }
+    }
+export const RefreshToken=async(req ,res)=>{
+    try {
+        const refreshToken=req.cookies.refreshToken
+        if(!refreshToken)
+        {
+            return res.status(404).json({success:false,message:"No refreshToken found"})
+        }
+        const decoded=jwt.verify(refreshToken,process.env.REFRESH_TOKEN)
+        const storeToken= await redis.get(`refresh_token:${decoded.userId}`)
+        if(storeToken!==refreshToken)
+        {
+            return res.status(401).json({success:false,message:"Invalid refreshToken"})
+        }
+        const accessToken=jwt.sign({userId:decoded.userId},process.env.ACCESS_TOKEN,{expiresIn:"15m"})
+        res.cookie("accessToken",accessToken,{
+            httpOnly:true,
+            secure:false,
+            sameSite:"strict",
+            maxAge:15*60*1000
+        })
+        return res.status(201).json({success:true,message:"Token refreshed Successfully"})
+    } catch (error) {
+        console.log("Logout Error",error)
+        res.status(500).json({success:false,message:"Internal Server Error"})
+    }
+}
+
