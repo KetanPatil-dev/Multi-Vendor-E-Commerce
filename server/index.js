@@ -6,6 +6,7 @@ import AuthRoutes from "./routes/auth.routes.js"
 import ProductRoutes from "./routes/product.route.js"
 import CartRoutes from "./routes/cart.route.js"
 import CouponRoutes from "./routes/coupons.route.js"
+import PaymentRoutes  from "./routes/payment.routes.js"
 dotenv.config()
 
 const app=express()
@@ -21,6 +22,7 @@ const Start=async()=>{
        app.use("/products",ProductRoutes)
        app.use("/cart",CartRoutes)
        app.use("/coupon",CouponRoutes)
+       app.use("/payment",PaymentRoutes)
        app.listen(PORT,()=>console.log(`Server Started on PORT:${PORT}`))
 
     } catch (error) {
