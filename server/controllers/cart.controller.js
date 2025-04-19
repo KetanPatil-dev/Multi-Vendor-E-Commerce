@@ -76,7 +76,7 @@ export const GetCartProducts=async(req,res)=>{
     try {
         const products= await ProductModel.find({_id:{$in:req.user.cartItems}}) 
         const cartItems= products.map((products)=>{
-            const item=req.user.cartItems.find((cartItems)=>cartItems.id!==products.id)
+            const item=req.user.cartItems.find((cartItems)=>cartItems.id===products.id)
             return {...products.toJSON(),quantity:item.quantity}
         })
         return res.json(cartItems)
