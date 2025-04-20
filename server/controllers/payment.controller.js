@@ -111,19 +111,26 @@ export const CheckoutSuccess = async (req, res) => {
           }
         );
       }
-      const products=JSON.parse(session.metadata.products)
-      const newOrder=new OrderModel({
-        user:session.metadata.userId,
-        products:products.map((product)=>({
-            product:product._id,
-            quantity:product.quantity,
-            price:product.price
+      const products = JSON.parse(session.metadata.products);
+      const newOrder = new OrderModel({
+        user: session.metadata.userId,
+        products: products.map((product) => ({
+          product: product._id,
+          quantity: product.quantity,
+          price: product.price,
         })),
-        totalAmount:session.amount_total/100, //convert from cents to dollars
-        stripeSessionId:sessionId
-      })
-      await newOrder.save()
-      return res.status(200).json({success:true,message:"Payment Successful,order created and coupon deactivated if used.",orderId:newOrder._id})
+        totalAmount: session.amount_total / 100, //convert from cents to dollars
+        stripeSessionId: sessionId,
+      });
+      await newOrder.save();
+      return res
+        .status(200)
+        .json({
+          success: true,
+          message:
+            "Payment Successful,order created and coupon deactivated if used.",
+          orderId: newOrder._id,
+        });
     }
   } catch (error) {
     console.log("ERROR", error);
