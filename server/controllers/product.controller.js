@@ -144,7 +144,7 @@ export const RecommendProducts = async (req, res) => {
 
 export const GetProductsByCategory = async (req, res) => {
   try {
-    const { category } = req.body;
+    const { category } = req.params
     const products = await ProductModel.find({ category });
 
     if (!products || products.length === 0) {
@@ -156,7 +156,7 @@ export const GetProductsByCategory = async (req, res) => {
         });
     }
 
-    res.status(200).json({ success: true, products });
+   return  res.status(200).json({ products });
   } catch (error) {
     console.log("Error", error);
     return res

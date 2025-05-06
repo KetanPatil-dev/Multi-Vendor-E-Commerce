@@ -4,7 +4,7 @@ import { motion } from 'framer-motion'
 
 const categories = [
   { href: "/jeans", name: "Jeans", imageUrl: "/jeans.png" },
-  { href: "/t-shirts", name: "T-shirts", imageUrl: "/tshirts.png" },
+  { href: "/t-shirt", name: "T-shirts", imageUrl: "/tshirts.png" },
   { href: "/shoes", name: "Shoes", imageUrl: "/shoes.png" },
   { href: "/glasses", name: "Glasses", imageUrl: "/glasses.png" },
   { href: "/jackets", name: "Jackets", imageUrl: "/jackets.png" },
