@@ -36,6 +36,7 @@ export const useCartStore = create((set, get) => ({
           return {cart:newCart}
       });
       get().calcTotal()
+      window.location.reload()
     } catch (error) {
       toast.error(error.response.data.message ?? "An error occured");
     }
@@ -58,5 +59,17 @@ export const useCartStore = create((set, get) => ({
         total=subtotal-discount
     }
     set({subtotal,total})
+  },
+  updateQuantity:async(productId,quantity)=>{
+      if(quantity===0)
+      {
+        get().removeFromCart(productId)
+        return
+      }
+      await axios.put(`/cart/${productId}`,{quantity})
+      set((prevState)=>({
+        cart:prevState.cart.map((item)=>item._id===productId?{...item,quantity}:item)
+      }))
+      get().calcTotal()
   }
 }));

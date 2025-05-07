@@ -4,6 +4,8 @@ import { motion } from "framer-motion";
 import { ShoppingCart } from "lucide-react";
 import { Link, Navigate } from "react-router-dom";
 import CartItem from "../components/CartItem";
+import OrderSummary from "../components/OrderSummary";
+import PeopleAlsoBought from "../components/PeopleAlsoBought";
 
 const CartPage = () => {
     
@@ -12,7 +14,8 @@ const CartPage = () => {
   return (
     <div className="py-8 md:py-16">
       <div className="mx-auto max-w-screen-xl px-2xl:px-4">
-        <div className="mt-6 sm:mt-8 md:gap-6 lg:flex lg:items-center xl:gap-8">
+      <div className='mt-6 sm:mt-8 md:gap-6 lg:flex lg:items-start xl:gap-8'>
+        <motion.div className=" mx-auto w-full flex-none lg:max-w-2xl xl:max-w-4xl"initial={{opacity:0,y:-20}} animate={{opacity:1,y:0}} transition={{duration:.8,delay:.2}}>
           {cart.length === 0 ? (
             <EmptyCartUI />
           ) : (
@@ -22,8 +25,13 @@ const CartPage = () => {
               ))}
             </div>
           )}
-        </div>
+        </motion.div>
+        {cart.length>0 && (<motion.div className="mx-auto mt-6 max-w-4xl flex-1 space-y-6 lg:mt-0 lg:w-full" initial={{opacity:0,y:-20}} animate={{opacity:1,y:20}} transition={{duration:.8,delay:.2}}>
+          <OrderSummary/>
+         
+          </motion.div>)}
       </div>
+    </div>
     </div>
   );
 };
