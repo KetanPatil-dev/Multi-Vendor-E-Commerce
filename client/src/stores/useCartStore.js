@@ -40,6 +40,14 @@ export const useCartStore = create((set, get) => ({
       toast.error(error.response.data.message ?? "An error occured");
     }
   },
+  removeFromCart:async(productId)=>{
+    await axios.delete("/cart",{data:{productId}})
+    set((prevState)=>({
+      cart:prevState.cart.filter((item)=>item._id!==productId)
+    }))
+    get().calcTotal()
+    toast.success("Item removed from Cart.")
+  },
   calcTotal:()=>{
     const {cart,coupon}=get()
     const subtotal=cart.reduce((sum,item)=>sum+item.price*item.quantity,0)
