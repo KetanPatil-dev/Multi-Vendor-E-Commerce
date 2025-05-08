@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useCartStore } from "../stores/useCartStore";
 import { motion } from "framer-motion";
 import { ShoppingCart } from "lucide-react";
@@ -10,7 +10,12 @@ import PeopleAlsoBought from "../components/PeopleAlsoBought";
 const CartPage = () => {
     
   const { cart } = useCartStore();
-
+useEffect(()=>{
+  if(!sessionStorage.getItem("reloaded"))
+  {
+    sessionStorage.setItem("reloded","true")
+  }
+},[])
   return (
     <div className="py-8 md:py-16">
       <div className="mx-auto max-w-screen-xl px-2xl:px-4">
@@ -25,6 +30,7 @@ const CartPage = () => {
               ))}
             </div>
           )}
+          {cart.length>0 && <PeopleAlsoBought/>}
         </motion.div>
         {cart.length>0 && (<motion.div className="mx-auto mt-6 max-w-4xl flex-1 space-y-6 lg:mt-0 lg:w-full" initial={{opacity:0,y:-20}} animate={{opacity:1,y:20}} transition={{duration:.8,delay:.2}}>
           <OrderSummary/>

@@ -122,7 +122,7 @@ export const DeleteProduct = async (req, res) => {
 export const RecommendProducts = async (req, res) => {
   try {
     const products = await ProductModel.aggregate([
-      { $sample: { size: 3 } },
+      { $sample: { size: 3} },
       {
         $project: {
           name: 1,

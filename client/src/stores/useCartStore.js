@@ -37,7 +37,7 @@ export const useCartStore = create((set, get) => ({
           return {cart:newCart}
       });
       get().calcTotal()
-      window.location.reload()
+      
     } catch (error) {
       toast.error(error.response.data.message ?? "An error occured");
     }
