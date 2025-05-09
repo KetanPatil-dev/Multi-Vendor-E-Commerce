@@ -11,12 +11,7 @@ import GiftCard from "../components/GiftCard";
 const CartPage = () => {
     
   const { cart } = useCartStore();
-useEffect(()=>{
-  if(!sessionStorage.getItem("reloaded"))
-  {
-    sessionStorage.setItem("reloded","true")
-  }
-},[])
+
   return (
     <div className="py-8 md:py-16">
       <div className="mx-auto max-w-screen-xl px-2xl:px-4">

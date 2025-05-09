@@ -42,7 +42,7 @@ export const CreateCheckoutSession = async (req,res) => {
       payment_method_types: ["card"],
       line_items: lineItems,
       mode: "payment",
-      success_url: `${process.env.CLIENT_URL}/purchase-succcess?session_id={CHECKOUT_SESSION_ID}`,
+      success_url: `${process.env.CLIENT_URL}/purchase-success?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${process.env.CLIENT_URL}/purchase-cancel`,
       discounts: coupon
         ? [
@@ -56,7 +56,7 @@ export const CreateCheckoutSession = async (req,res) => {
         couponCode: couponCode || "",
         products: JSON.stringify(
           products.map((p) => ({
-            id: p._id,
+            _id: p._id,
             quantity: p.quantity,
             price: p.price,
           }))
@@ -101,6 +101,9 @@ export const CheckoutSuccess = async (req, res) => {
     const { sessionId } = req.body;
     const session = await stripe.checkout.sessions.retrieve(sessionId);
     if (session.payment_status === "paid") {
+      const existingOrder=await OrderModel.findOne({stripeSessionId:sessionId})
+      if(existingOrder)
+        return res.status(409).json({message:"Order already exists in Stripe Session"})
       if (session.metadata.couponCode) {
         await CoupounModel.findOneAndUpdate(
           {
@@ -134,8 +137,14 @@ export const CheckoutSuccess = async (req, res) => {
         });
     }
   } catch (error) {
+    if (error.code === 11000 && error.keyPattern && error.keyPattern.stripeSessionId) {
+      return res.status(409).json({
+        success: false,
+        message: "Order already exists for this Stripe session.",
+      });
+    }
     console.log("ERROR", error);
-    return resizeBy
+    return res
       .status(500)
       .json({ success: false, message: "Internal Server Error" });
   }

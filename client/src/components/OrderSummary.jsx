@@ -23,6 +23,10 @@ try {
     const result= await stripe.redirectToCheckout({
         sessionId:session.id
     })
+    if(result.error)
+    {
+        console.log(result.error)
+    }
 } catch (error) {
     console.log(error)
 }
