@@ -2,11 +2,11 @@ import { stripe } from "../lib/stripe.js";
 import CoupounModel from "../models/coupoun.model.js";
 import OrderModel from "../models/order.model.js";
 
-export const CreateCheckoutSession = async () => {
+export const CreateCheckoutSession = async (req,res) => {
   try {
     const { products, couponCode } = req.body;
     if (!Array.isArray(products) || products.length === 0) {
-      return resizeBy
+      return res
         .status(400)
         .json({ error: "Invalid or Empty Products Array" });
     }
@@ -16,7 +16,7 @@ export const CreateCheckoutSession = async () => {
       totalAmount = amount * product.quantity;
 
       return {
-        price_date: {
+        price_data: {
           currency: "usd",
           product_data: {
             name: product.name,
@@ -24,6 +24,7 @@ export const CreateCheckoutSession = async () => {
           },
           unit_amount: amount,
         },
+        quantity:product.quantity || 1
       };
     });
     let coupon = null;
@@ -38,7 +39,7 @@ export const CreateCheckoutSession = async () => {
       }
     }
     const session = await stripe.checkout.sessions.create({
-      payment_method_types: ["cards"],
+      payment_method_types: ["card"],
       line_items: lineItems,
       mode: "payment",
       success_url: `${process.env.CLIENT_URL}/purchase-succcess?session_id={CHECKOUT_SESSION_ID}`,
@@ -65,12 +66,12 @@ export const CreateCheckoutSession = async () => {
     if (totalAmount >= 20000) {
       await createNewCoupoun(req.user._id);
     }
-    return resizeBy
+    return res
       .status(200)
       .json({ id: session.id, totalAmount: totalAmount / 100 });
   } catch (error) {
     console.log("ERROR", error);
-    return resizeBy
+    return res
       .status(500)
       .json({ success: false, message: "Internal Server Error" });
   }
