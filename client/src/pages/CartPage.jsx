@@ -6,6 +6,7 @@ import { Link, Navigate } from "react-router-dom";
 import CartItem from "../components/CartItem";
 import OrderSummary from "../components/OrderSummary";
 import PeopleAlsoBought from "../components/PeopleAlsoBought";
+import GiftCard from "../components/GiftCard";
 
 const CartPage = () => {
     
@@ -34,6 +35,7 @@ useEffect(()=>{
         </motion.div>
         {cart.length>0 && (<motion.div className="mx-auto mt-6 max-w-4xl flex-1 space-y-6 lg:mt-0 lg:w-full" initial={{opacity:0,y:-20}} animate={{opacity:1,y:20}} transition={{duration:.8,delay:.2}}>
           <OrderSummary/>
+          <GiftCard/>
          
           </motion.div>)}
       </div>

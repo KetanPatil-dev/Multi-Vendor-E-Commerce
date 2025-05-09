@@ -16,7 +16,7 @@ export const useCartStore = create((set, get) => ({
       get().calcTotal()
     } catch (error) {
       set({ cart: [] });
-      toast.error(error.response.data.message ?? "An error occured");
+      console.log(error)
     }
   },
   addToCart: async (product) => {
