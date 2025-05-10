@@ -19,8 +19,10 @@ export const useCartStore = create((set, get) => ({
       console.log(error)
     }
   },
-  clearCart:async()=>{
-    set({cart:[],coupon:null,total:0,subtotal:0})
+  clearCart:()=>{
+    
+    get().removeFromCart()
+    window.location.reload()
   },
   addToCart: async (product) => {
     try {
