@@ -4,5 +4,5 @@ import { GetCoupon, ValidateCoupon } from "../controllers/coupons.controller.js"
 const CouponRoutes=express.Router()
 
 CouponRoutes.get("/",ProtectRoute,GetCoupon)
-CouponRoutes.get("/validate",ProtectRoute,ValidateCoupon)
+CouponRoutes.post("/validate",ProtectRoute,ValidateCoupon)
 export default CouponRoutes

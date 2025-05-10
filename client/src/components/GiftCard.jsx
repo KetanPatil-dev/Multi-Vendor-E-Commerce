@@ -1,15 +1,31 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
 import toast from 'react-hot-toast'
 import { useCartStore } from '../stores/useCartStore'
 
 const GiftCard = () => {
     const [userInputCode,setUserInputCode]=useState("")
-    const {coupon,isCouponApplied}=useCartStore()
+    const {coupon,applyCoupon,getMyCoupon,removeCoupon}=useCartStore()
+    const [isCouponApplied,setCouponApplied]=useState(false)
+    
+    useEffect(()=>{
+        getMyCoupon()
+    },[getMyCoupon])
     const handleApplyCoupon=()=>{
+        if(!userInputCode)
+            applyCoupon(userInputCode)
         toast.success("Discount Applied",{id:"discount"})
     }
-  
+  useEffect(()=>{
+    if(coupon) {setUserInputCode(coupon.code)
+        setCouponApplied(true)
+    }
+  },[coupon])
+const handleremoveCoupon=async()=>{
+    await removeCoupon()
+    setUserInputCode("")
+    setCouponApplied(false)
+}
 	return (
 		<motion.div
 			className='space-y-4 rounded-lg border border-gray-700 bg-gray-800 p-4 shadow-sm sm:p-6'
@@ -60,7 +76,7 @@ const GiftCard = () => {
              focus:ring-4 focus:ring-red-300'
 						whileHover={{ scale: 1.05 }}
 						whileTap={{ scale: 0.95 }}
-						// onClick={handleRemoveCoupon}
+						onClick={handleremoveCoupon}
 					>
 						Remove Coupon
 					</motion.button>
