@@ -9,12 +9,14 @@ import axios from "../lib/axios";
 
 const stripePromise=loadStripe("pk_test_51RFWj3BOK4QGF21Eg1NWKeuIaOZXa23mJaSW9njKSAolX6XsTBxTfrkiRQ6eQGcHfklshRAs5nGyd6t3cLjDnlTl002IhBYmQd")
 const OrderSummary = () => {
-  const { total, subtotal, coupon, isCouponApplied ,cart} = useCartStore();
-  const savings = subtotal - total;
-  const formatedSubtotal = subtotal.toFixed(2);
+  
+  const {  coupon, isCouponApplied ,cart} = useCartStore();
+  let {total}=useCartStore()
+  const savings = (total*10/100);
+  //const formatedSubtotal = subtotal.toFixed(2);
   const formatedTotal = total.toFixed(2); // Fixed: should use total, not subtotal
   const formatedSavings = savings.toFixed(2);
-
+console.log(savings,total)
   const handlePayment=async ()=>{
 try {
     const stripe= await stripePromise
@@ -46,7 +48,7 @@ try {
             Original price
           </dt>
           <dd className="text-base font-medium text-white">
-            ${formatedSubtotal}
+            ${formatedTotal}
           </dd>
         </dl>
         {savings > 0 && (
@@ -70,7 +72,7 @@ try {
         <dl className="flex items-center justify-between gap-4 border-t border-gray-600 pt-2">
           <dt className="text-base font-bold text-white">Total</dt>
           <dd className="text-base font-bold text-emerald-400">
-            ${formatedTotal}
+            ${formatedTotal-formatedSavings}
           </dd>
         </dl>
       </div>

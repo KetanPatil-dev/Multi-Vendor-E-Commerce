@@ -7,14 +7,13 @@ const GiftCard = () => {
     const [userInputCode,setUserInputCode]=useState("")
     const {coupon,applyCoupon,getMyCoupon,removeCoupon}=useCartStore()
     const [isCouponApplied,setCouponApplied]=useState(false)
-    
+    console.log(userInputCode)
     useEffect(()=>{
         getMyCoupon()
     },[getMyCoupon])
     const handleApplyCoupon=()=>{
-        if(!userInputCode)
-            applyCoupon(userInputCode)
-        toast.success("Discount Applied",{id:"discount"})
+      toast.success("Discount code is already Applied",{id:"Discount"})
+        
     }
   useEffect(()=>{
     if(coupon) {setUserInputCode(coupon.code)
@@ -22,9 +21,9 @@ const GiftCard = () => {
     }
   },[coupon])
 const handleremoveCoupon=async()=>{
-    await removeCoupon()
+ toast.error("Dicount Removed",{id:"removed"})
     setUserInputCode("")
-    setCouponApplied(false)
+    
 }
 	return (
 		<motion.div
