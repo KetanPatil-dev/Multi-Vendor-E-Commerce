@@ -3,6 +3,7 @@
 A modern, full-stack e-commerce web application that allows users to browse products, manage their shopping cart, apply discount coupons, and complete secure purchases. Built with React, Node.js, Express, and MongoDB, stripe this project delivers a responsive and user-friendly shopping experience.
 
 ![image alt](https://github.com/KetanPatil-dev/Multi-Vendor-E-Commerce/blob/6163948399561b539e69b6d201194e0a2abac1a2/Images/Screenshot%202025-05-11%20at%2012.11.12%E2%80%AFPM.png)
+![image alt](https://github.com/KetanPatil-dev/Multi-Vendor-E-Commerce/blob/8653275622273d0d9efc0728a248f0163490be0f/Images/Screenshot%202025-05-11%20at%2012.41.18%E2%80%AFPM.png)
 ![image alt](https://github.com/KetanPatil-dev/Multi-Vendor-E-Commerce/blob/d95dd6e7c3c23d3f73485925587c3e8f6c8d1693/Images/Screenshot%202025-05-11%20at%2012.04.01%E2%80%AFPM.png)
 ![image alt](https://github.com/KetanPatil-dev/Multi-Vendor-E-Commerce/blob/1af54c4e739018478f462e6d3687a2b3dca8f76f/Images/Screenshot%202025-05-11%20at%2012.06.17%E2%80%AFPM.png)
 ![image alt](https://github.com/KetanPatil-dev/Multi-Vendor-E-Commerce/blob/3bfe31c78df53a0edd6357c0b292007379c93092/Images/Screenshot%202025-05-11%20at%2012.09.31%E2%80%AFPM.png)
