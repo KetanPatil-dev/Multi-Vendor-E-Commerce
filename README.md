@@ -1,4 +1,4 @@
-# E-commerce Store
+# Multi-Vendor-E-commerce Store
 
 A modern, full-stack e-commerce web application that allows users to browse products, manage their shopping cart, apply discount coupons, and complete secure purchases. Built with React, Node.js, Express, and MongoDB, stripe this project delivers a responsive and user-friendly shopping experience.
 
