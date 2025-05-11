@@ -6,7 +6,7 @@ A modern, full-stack e-commerce web application that allows users to browse prod
 ![image alt](https://github.com/KetanPatil-dev/Multi-Vendor-E-Commerce/blob/d95dd6e7c3c23d3f73485925587c3e8f6c8d1693/Images/Screenshot%202025-05-11%20at%2012.04.01%E2%80%AFPM.png)
 ![image alt](https://github.com/KetanPatil-dev/Multi-Vendor-E-Commerce/blob/1af54c4e739018478f462e6d3687a2b3dca8f76f/Images/Screenshot%202025-05-11%20at%2012.06.17%E2%80%AFPM.png)
 ![image alt](https://github.com/KetanPatil-dev/Multi-Vendor-E-Commerce/blob/3bfe31c78df53a0edd6357c0b292007379c93092/Images/Screenshot%202025-05-11%20at%2012.09.31%E2%80%AFPM.png)
-
+![image alt](https://github.com/KetanPatil-dev/Multi-Vendor-E-Commerce/blob/daef678f26e0a28f42274e2651a655458e5fb658/Images/Screenshot%202025-05-11%20at%2012.09.55%E2%80%AFPM.png)
 ---
 
 ## Table of Contents
